@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Kỷ Niệm Năm 2025</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- GIỮ NGUYÊN CSS CŨ (Header, Grid, Buttons, Effects...) --- */
+      :root {
+        --primary-color: #ff4d6d;
+        --bg-color: #ffe6e9;
+        --card-bg: #ffffff;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        background-image: linear-gradient(135deg, #fff0f3 0%, #fff 100%);
+        font-family: "Nunito", sans-serif;
+        color: #333;
+        min-height: 100vh;
+        overscroll-behavior: none;
+        padding-bottom: 100px;
+      }
+
+      header {
+        text-align: center;
+        padding: 30px 20px 10px;
+      }
+
+      h1 {
+        font-family: "Pacifico", cursive;
+        color: var(--primary-color);
+        font-size: 2.5rem;
+        margin: 0;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      #countdown {
+        color: #555;
+        font-weight: bold;
+        margin-top: 5px;
+      }
+
+      .music-control {
+        margin-top: 15px;
+        cursor: pointer;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.2s;
+      }
+
+      .music-control:hover {
+        transform: scale(1.05);
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .grid-wrapper {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (min-width: 600px) {
+        .grid-wrapper {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width: 900px) {
+        .grid-wrapper {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .month-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        cursor: pointer;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        position: relative;
+        text-align: center;
+        border: 4px solid white;
+      }
+
+      .month-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 25px rgba(255, 77, 109, 0.2);
+      }
+
+      .card-img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+      }
+
+      .card-info {
+        padding: 10px;
+      }
+
+      .month-name {
+        font-weight: 700;
+        color: var(--primary-color);
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      .footer-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+
+      .special-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        font-family: "Nunito", sans-serif;
+      }
+
+      .btn-heart {
+        background: linear-gradient(45deg, #ff9a9e, #fecfef);
+        color: #c71585;
+      }
+
+      .btn-flower {
+        background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+        color: #5e2a84;
+      }
+
+      .btn-magic {
+        background: linear-gradient(45deg, #84fab0, #8fd3f4);
+        color: #0076a3;
+      }
+
+      .special-btn:active {
+        transform: scale(0.95);
+      }
+
+      #effect-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 2000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .effect-element {
+        position: absolute;
+        transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      .big-center-icon {
+        font-size: 15rem;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 2005;
+      }
+
+      .big-center-icon.show {
+        opacity: 1;
+        transform: scale(1);
+        animation: heartBeat 1.2s infinite;
+      }
+
+      #puzzle-container {
+        width: 300px;
+        height: 300px;
+        position: relative;
+        display: none;
+      }
+
+      .puzzle-piece {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-size: 300px 300px;
+        transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-sizing: border-box;
+      }
+
+      .close-effect {
+        position: absolute;
+        bottom: 50px;
+        padding: 10px 20px;
+        background: #333;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 3000;
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translate(0, 0);
+        }
+
+        100% {
+          transform: translate(-100%, 0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes heartBeat {
+        0% {
+          transform: scale(1);
+        }
+
+        14% {
+          transform: scale(1.3);
+        }
+
+        28% {
+          transform: scale(1);
+        }
+
+        42% {
+          transform: scale(1.3);
+        }
+
+        70% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) scale(0.5);
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        100% {
+          transform: translateY(-100px) scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      .heart {
+        position: absolute;
+        color: #ff4d6d;
+        animation: float 6s infinite ease-in;
+        z-index: 0;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      @media (max-width: 600px) {
+        .grid-wrapper {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .card-img {
+          height: 130px;
+        }
+
+        .modal-content {
+          width: 95%;
+          height: 80vh;
+        }
+
+        .slideshow-area {
+          max-height: 65%;
+        }
+
+        .marquee-content {
+          font-size: 1rem;
+        }
+
+        .close-btn {
+          top: 10px;
+          right: 20px;
+          font-size: 30px;
+        }
+      }
+
+      /* --- CSS MỚI CHO PHẦN MODAL VÀ BLOG --- */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s;
+      }
+
+      .modal-content {
+        position: relative;
+        width: 90%;
+        max-width: 700px;
+        height: 85vh;
+        max-height: 850px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        /* Làm mờ nền modal */
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        color: white;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1001;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.3);
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 35px;
+        border-radius: 50%;
+      }
+
+      /* Các thành phần cũ của slideshow (mặc định ẩn) */
+      .slideshow-area {
+        flex: 1;
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #000;
+        border: 2px solid #fff;
+        max-height: 70%;
+        display: none;
+        margin: 15px 15px 0 15px;
+      }
+
+      .modal-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      .modal-img.active {
+        opacity: 1;
+      }
+
+      .text-area {
+        height: auto;
+        min-height: 50px;
+        margin: 10px 15px 15px 15px;
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 10px;
+        display: none;
+        align-items: center;
+      }
+
+      .marquee-wrapper {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .marquee-content {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 15s linear infinite;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      /* --- CSS CHO BLOG CONTAINER MỚI --- */
+      #blog-container {
+        display: none;
+        /* Mặc định ẩn */
+        flex: 1;
+        overflow-y: auto;
+        /* Cho phép cuộn dọc */
+        padding: 20px 25px;
+        color: #fff;
+        text-align: left;
+        line-height: 1.6;
+      }
+
+      #blog-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #blog-container::-webkit-scrollbar-thumb {
+        background: rgba(255, 77, 109, 0.7);
+        border-radius: 4px;
+      }
+
+      /* Style cho các thành phần trong blog */
+      .blog-title {
+        font-family: "Pacifico", cursive;
+        color: var(--primary-color);
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .blog-heading {
+        color: #ff9a9e;
+        font-size: 1.3rem;
+        margin-top: 25px;
+        margin-bottom: 10px;
+        border-bottom: 2px solid rgba(255, 77, 109, 0.3);
+        padding-bottom: 5px;
+        display: inline-block;
+      }
+
+      .blog-text {
+        margin-bottom: 15px;
+        font-size: 1rem;
+      }
+
+      .blog-media-full {
+        width: 100%;
+        border-radius: 12px;
+        margin: 10px 0 20px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+      }
+
+      /* Lưới ảnh trong blog */
+      /* --- ĐOẠN CODE MỚI (HIỂN THỊ FULL ẢNH) --- */
+
+      /* Thêm align-items: center để các ảnh căn giữa theo chiều dọc nếu lệch nhau */
+      .blog-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 15px 0;
+        align-items: center;
+      }
+
+      .blog-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 15px 0;
+        align-items: center;
+      }
+
+      .blog-grid-item {
+        width: 100%;
+        /* ĐÃ XÓA height: 150px */
+        height: auto;
+        /* MỚI: Chiều cao tự động theo tỉ lệ ảnh */
+        /* ĐÃ XÓA object-fit: cover */
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s;
+        cursor: pointer;
+        display: block;
+        /* Đảm bảo không bị khoảng trắng thừa bên dưới */
+      }
+
+      .blog-grid-item:hover {
+        transform: scale(1.03);
+      }
+
+      .blog-outro {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-top: 30px;
+        color: var(--primary-color);
+      }
+
+      @media (max-width: 600px) {
+        .blog-grid-3 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* ĐÃ XÓA dòng chỉnh height cho mobile vì giờ nó tự động rồi */
+        #blog-container {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Happy Valentine ❤️</h1>
+      <p id="countdown"></p>
+      <p>Recap năm 2025</p>
+      <button class="music-control" onclick="toggleMusic()">
+        <span id="music-icon">🎵</span> Bật nhạc lên em nhé
+      </button>
+    </header>
+
+    <div class="container">
+      <div class="grid-wrapper" id="grid"></div>
+
+      <div class="footer-actions">
+        <button class="special-btn btn-heart" onclick="triggerEffect('heart')">
+          ❤️ Trái tim khủng lồ
+        </button>
+        <button
+          class="special-btn btn-flower"
+          onclick="triggerEffect('flower')"
+        >
+          🌸 bông hoa chà bá
+        </button>
+        <button class="special-btn btn-magic" onclick="triggerEffect('puzzle')">
+          🧩 tình yêu to bự
+        </button>
+      </div>
+    </div>
+
+    <div id="myModal" class="modal">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div class="modal-content">
+        <div class="slideshow-area" id="slideshow-container"></div>
+        <div class="text-area" id="marquee-container">
+          <div class="marquee-wrapper">
+            <div class="marquee-content" id="modal-caption"></div>
+          </div>
+        </div>
+
+        <div id="blog-container"></div>
+      </div>
+    </div>
+
+    <div id="effect-overlay">
+      <div id="big-icon" class="big-center-icon">❤️</div>
+      <div id="puzzle-container"></div>
+      <div class="close-effect" onclick="closeEffect()">Đóng lại</div>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+      <source
+        src="https://www.bensound.com/bensound-music/bensound-love.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <audio id="puzzleMusic" preload="auto">
+      <source
+        src="https://www.bensound.com/bensound-music/bensound-dreams.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script>
+      // --- CẤU HÌNH DỮ LIỆU MỚI ---
+      // Chú ý: Tháng 1 có thêm thuộc tính 'type: "blog"' và 'blogContent'
+      const memories = [
+        {
+          month: "Tháng 1",
+          cover: "thang1/BiaThang1.jpg", // Ảnh bìa bên ngoài
+          type: "blog", // Đánh dấu đây là dạng bài viết
+          // NỘI DUNG BÀI VIẾT HTML CHO THÁNG 1 Ở ĐÂY
+          blogContent: `
+                    <h2 class="blog-title">Tháng 1 Rực Rỡ Của Chúng Mình</h2>
+                    <p class="blog-text">Tháng 1 là tháng đầu năm của năm 2025, nó gần với ngày anniversary nên mang đến nhiều kỷ niệm sâu sắc nhất.
+                         Cùng nhau ôn lại một chút kỷ niệm của tháng 1 nha em bé ơi! ❤️</p>
+
+                    <h3 class="blog-heading">1. Chọn Nhẫn Cưới Anniversary 💍</h3>
+                    <p class="blog-text">Nhớ hôm đó hai đứa hí hửng đi chọn, đeo thử bao nhiêu mẫu cuối cùng cũng chốt được em này. Nhìn tay em đeo xinh xỉu.</p>
+                    <img src="thang1/chonNhanCuoi.jpg" class="blog-media-full" alt="Nhẫn cưới">
+
+                    <h3 class="blog-heading">2. Em Bé Makeup dễ thương xênh đẹp 💄</h3>
+                    <p class="blog-text">Khúc này là chuẩn bị đi chơi nè</p>
+                    <video controls class="blog-media-full">
+                        <source src="thang1/makeupDeThuongXinhDep.mp4" type="video/mp4">
+                        Trình duyệt của em không hỗ trợ thẻ video.
+                    </video>
+
+                    <h3 class="blog-heading">3.Kỷ Niệm Anniversary 🎥</h3>
+                    <p class="blog-text">tổng hợp lại vài ảnh của chúng mình. Xem lại mà xúc động ghê gớm.</p>
+                     <video controls class="blog-media-full">
+                        <source src="thang1/videoAnniversary.mp4" type="video/mp4">
+                    </video>
+
+                    <h3 class="blog-heading">4. Loạt Ảnh Đi Chơi & Lấy Nhẫn 📸</h3>
+                    <p class="blog-text">Đi chơi khắp nơi, chụp choẹt đủ kiểu. Đây là mấy tấm ưng ý nhất nè:</p>
+                    <p> Anh quan đón em đi chơi</p>
+                    <img src="thang1/anhQuaDonEmDiChoi.jpg" width=300>
+                    <div class="blog-grid-3">
+                        <img src="thang1/anhDichoi1.jpg" class="blog-grid-item">
+                        <img src="thang1/anhDichoi2.jpg" class="blog-grid-item">
+                        <img src="thang1/anhDichoi3.jpg" class="blog-grid-item">
+                        <img src="thang1/anhDiVanHanh.jpg" class="blog-grid-item">
+                        <img src="thang1/diChoi4.jpg" class="blog-grid-item">
+                        <img src="thang1/diChoi5.jpg" class="blog-grid-item">
+                        
+                    </div>
+                    <img src="thang1/anhBiaThang1.jpg" 
+    
+     style="height: 100dvh; width: 100%; object-fit: cover; display: block;">
+
+
+                    <h3 class="blog-heading">5. Những Điều Nhỏ Bé Đáng Yêu 🥰</h3>
+                    <p class="blog-text">Mấy cái này linh tinh mà dễ thương lắm nè: sticker capybara trên dép mới, sữa tắm thơm phức, ảnh ăn tết ké và đi Đầm Sen với mấy cháu của em.</p>
+                    <div class="blog-grid-2">
+                         <img src="thang1/depCAbybara.jpg?w=300" class="blog-grid-item" alt="Sticker Capybara">
+                         <img src="thang1/điAnTetke.jpg?w=300" class="blog-grid-item" alt="Sữa tắm">
+                         <img src="thang1/suaTamEmbe.jpg?w=300" class="blog-grid-item" alt="Ăn Tết ké">
+                         <img src="thang1/diDamSen.jpg?w=300" class="blog-grid-item" alt="Đi Đầm Sen">
+                    </div>
+
+                    <h3 class="blog-heading">6. Tết Em Bé Về Quê 🏠</h3>
+                    <p class="blog-text">Loay hoay cái lại tới Tết, em về quê gửi bao nhiêu là hình xinh!</p>
+                     <div class="blog-grid-2">
+                        <img src="thang1/veQue1.jpg" class="blog-grid-item">
+                        <img src="thang1/veQue2.jpg" class="blog-grid-item">
+                        <img src="thang1/veQue3.jpg" class="blog-grid-item">
+                        <img src="thang1/veQue4.jpg" class="blog-grid-item">
+
+                        <img src="thang1/IMG_20250128_115047_1.jpg" class="blog-grid-item">
+                        <img src="thang1/IMG_20250128_120312_1.jpg" class="blog-grid-item">
+                        <img src="thang1/IMG_20250128_211843_1.jpg" class="blog-grid-item">
+                        <img src="thang1/IMG_20250128_213542_1.jpg" class="blog-grid-item">
+                         <img src="thang1/IMG_20250129_205246_1.jpg" class="blog-grid-item">
+                         <img src="thang1/IMG_20250129_120442_1.jpg" class="blog-grid-item">
+                         <img src="thang1/IMG_20250129_203043_1.jpg" class="blog-grid-item">
+                         <img src="thang1/IMG_20250128_215600_1.jpg" class="blog-grid-item">
+                     </div>
+
+                    <p class="blog-outro">--- Hết tháng một ròi, sang tiếp tháng 2 nha! Yêu em ---</p>
+                `,
+        },
+        // Các tháng khác vẫn giữ cấu trúc cũ (Slideshow + chữ chạy)
+        {
+          month: "Tháng 2",
+          cover: "thang2/anhBiaThang2.jpg", // Nhớ chọn 1 tấm đẹp làm bìa
+          type: "blog",
+          blogContent: `
+                    <h2 class="blog-title">Tháng 2: Đà Lạt Mộng Mơ (Again 2025) 🌲</h2>
+                    <p class="blog-text">Tháng 2 lại về, và như một thói quen từ năm 2024, chúng mình lại xách ba lô lên và đi Đà Lạt. Cùng xem lại hành trình chữa lành này nha!</p>
+
+                    <h3 class="blog-heading">1. Khởi Hành & Chuẩn Bị 🧳</h3>
+                    <p class="blog-text">Hí hửng đặt vé từ sớm.</p>
+                    <p class="blog-text">Emm bé ơi: " Anh mua vali mới nha". Mua thêm cái vali to đùng nữa, 2 đứa 2 cái vali and n đồ ></p>
+
+                  <div class="blog-grid-2">
+                    <img src="thang2/muaVali.jpg" class="blog-media-full" alt="Vali và vé xe">
+                    <img src="thang2/veXe.jpg" class="blog-media-full" alt="Vali và vé xe">
+                      </div>
+
+                    <h3 class="blog-heading">2. Check-in Muôn Nơi 📸</h3>
+                    <p class="blog-text">Đà Lạt đón mình bằng không khí se lạnh siêu thích. Tụi mình đã đi qua bao nhiêu là chỗ:</p>
+                    
+                    <p class="blog-text"><b>📍 Ga Đà Lạt & Cung đường đèo:</b></p>
+                    <div class="blog-grid-2">
+                        <img src="thang2/diDeo.jpg" class="blog-grid-item">
+                        <img src="thang2/diDeo2.jpg" class="blog-grid-item">
+                    </div>
+                    
+                    <div class="blog-grid-2">
+                        <img src="thang2/gaDaLat.jpg" class="blog-grid-item">
+                        <img src="thang2/diDeo4.jpg" class="blog-grid-item">
+                    </div>
+                    <h3>Ngồi sau hát nữa chớ</h3>
+                     <video controls class="blog-media-full">
+                        <source src="thang2/diDeo3.mp4" type="video/mp4">
+                    </video>
+
+                    <p class="blog-text"><b>📍 Quảng Trường Lâm Viên:</b> (Cái bông Atiso khổng lồ huyền thoại nè)</p>
+                    <div class="blog-grid-3">
+                       <img src="thang2/quangTruongLamVien3.jpg" class="blog-grid-item">
+                         <img src="thang2/quangTruongLamVien1.jpg" class="blog-grid-item">
+                        <img src="thang2/quangTruongLamVien2.jpg" class="blog-grid-item">
+                    </div>
+
+                    <h3 class="blog-heading">3. Buổi Tối "Quậy" Banh Nóc 🍢</h3>
+                    <p class="blog-text">Tối về thay đồ xinh đẹp ("lên đồ") đi chơi tiếp. Làm ngay cái bánh tráng nướng nóng hổi vừa thổi vừa ăn.</p>
+                    <div class="blog-grid-3">
+                       <img src="thang2/veLenDo1.jpg" class="blog-grid-item">
+                         <img src="thang2/veLenDo2.jpg" class="blog-grid-item">
+                        <img src="thang2/veLenDo3.jpg" class="blog-grid-item">
+                    </div>
+                    
+                    <p class="blog-text">Làm ngay cái bánh tráng nướng nóng hổi vừa thổi vừa ăn. Lên Đà Lạt mà ăn hàu nữa</p>
+                    <div class="blog-grid-2">
+                        <img src="thang2/hauDaLat.jpg" class="blog-grid-item">
+                        <img src="thang2/banhTrangNuong.jpg" class="blog-grid-item">
+                    </div>
+                    
+                    <p class="blog-text">Ăn xong thì năng lượng tràn trề, bắt đầu quay "tóp tóp" quậy nè:</p>
+                    <video controls class="blog-media-full">
+                        <source src="thang2/quayToptopQuay.mp4" type="video/mp4">
+                    </video>
+
+                    <hr style="border: 1px dashed #pink; margin: 30px 0;">
+
+                    <h3 class="blog-heading">4. Ngày Hôm Sau: Săn Mây... Trong Mơ ☁️</h3>
+                    <p class="blog-text">Dự định đi săn mây hùng hồn lắm, mà mở mắt ra là... trưa trật trưa trờ. Thôi thì đi Cối Xay Gió bù nhé.</p>
+                    <div class="blog-grid-2">
+                        <img src="thang2/sanMay.jpg" class="blog-grid-item">
+                        <img src="thang2/sanmay2.jpg" class="blog-grid-item" alt="Ngủ nướng">
+                    </div>
+                     <div class="blog-grid-2">
+                        <img src="thang2/sanMay3.jpg" class="blog-grid-item">
+                        <img src="thang2/sanmay4.jpg" class="blog-grid-item" alt="Ngủ nướng">
+                    </div>
+
+                    <p class="blog-text">Về thay outfit mới (mang vali to để làm gì? Để thay đồ liên tục chứ chi!):</p>
+                    <div class="blog-grid-3">
+                        <img src="thang2/lenDo1.jpg" class="blog-grid-item">
+                        <img src="thang2/lenDo2.jpg" class="blog-grid-item">
+                        <img src="thang2/lenDo3.jpg" class="blog-grid-item">
+                    </div>
+                    <div class="blog-grid-3">
+                        <img src="thang2/lenDo4.jpg" class="blog-grid-item">
+                        <img src="thang2/lenDo5.jpg" class="blog-grid-item">
+                        <img src="thang2/lenDo6.jpg" class="blog-grid-item">
+                    </div>
+
+                    <h3 class="blog-heading">5. Chiều Buông Hồ Tuyền Lâm 🌅</h3>
+                    <p class="blog-text">Chiều mát mẻ rủ nhau ra hồ Tuyền Lâm sống ảo. View ở đây chill thực sự.</p>
+                   <div class="blog-grid-2">
+                        <img src="thang2/hoTuyenLam2.jpg" class="blog-grid-item">
+                        <img src="thang2/hoTuyenLam2.jpg" class="blog-grid-item" alt="Ngủ nướng">
+                    </div>
+                    <video controls class="blog-media-full">
+                        <source src="thang2/hoTuyenLam.mp4" type="video/mp4">
+                    </video>
+
+                    <h3 class="blog-heading">6. Hết hồ Tuyền Lâm tới Hồ Xuân Hương/h3>
+                    <p class="blog-text">dạo một vòng Hồ Xuân Hương.</p>
+                    <div class="blog-grid-2">
+                        <img src="thang2/hoXuanHuong.jpg" class="blog-grid-item">
+                        <img src="thang2/hoXuanHuong2.jpg" class="blog-grid-item">
+                    </div>
+                  
+                    <p class="blog-text">Lúc nào cũng đáng yêu hết á.</p>
+                      <div class="blog-grid-2">
+                        <img src="thang2/hoXuanHuong3.jpg" class="blog-grid-item">
+                        <img src="thang2/hoXuanHuong4.jpg" class="blog-grid-item">
+                    </div>
+                    <p class="blog-text">Sao thiếu được chợ Đà Lạt</p>
+                      <div class="blog-grid-2">
+                        <img src="thang2/choDaLat.jpg" class="blog-grid-item">
+                        
+                    </div>
+
+                    <h3 class="blog-heading">7. Tạm Biệt Đà Lạt 🌙</h3>
+                    <p class="blog-text">Tối cuối cùng, dạo một vòng Hồ Xuân Hương rồi chốt hạ bằng bữa Buffet khuya no căng bụng.</p>
+                    <div class="blog-grid-2">
+                        <img src="thang2/buffet.jpg" class="blog-grid-item">
+                        <img src="thang2/buffet2.jpg" class="blog-grid-item">
+                    </div>
+                    <video controls class="blog-media-full">
+                        <source src="thang2/buffet3.mp4" type="video/mp4">
+                    </video>
+
+                    <p class="blog-outro">--- Hẹn Đà Lạt một ngày không xa nhé! Yêu anh và yêu Đà Lạt ---</p>
+                `,
+        },
+        {
+          month: "Tháng 3",
+          cover:
+            "https://images.unsplash.com/photo-1522673607200-1645062cd955?w=400",
+          desc: "Đi xem phim khóc nhè, anh phải dỗ mãi mới nín. Đáng yêu ghê.",
+          images: [
+            "https://images.unsplash.com/photo-1522673607200-1645062cd955?w=600",
+          ],
+        },
+        {
+          month: "Tháng 4",
+          cover:
+            "https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=400",
+          desc: "Cùng nhau nấu ăn, tuy hơi lộn xộn nhưng mà vui ha.",
+          images: [
+            "https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=600",
+          ],
+        },
+        {
+          month: "Tháng 5",
+          cover:
+            "https://images.unsplash.com/photo-1520854221256-17451cc330e7?w=400",
+          desc: "Đà Lạt mộng mơ, anh chỉ nhớ mỗi nụ cười của em thôi.",
+          images: [
+            "https://images.unsplash.com/photo-1520854221256-17451cc330e7?w=600",
+          ],
+        },
+        {
+          month: "Tháng 6",
+          cover:
+            "https://images.unsplash.com/photo-1530103862676-de3c9da59af7?w=400",
+          desc: "Chúc mừng sinh nhật công chúa. Tuổi mới xinh đẹp và bớt bướng nha.",
+          images: [
+            "https://images.unsplash.com/photo-1530103862676-de3c9da59af7?w=600",
+          ],
+        },
+        {
+          month: "Tháng 7",
+          cover:
+            "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400",
+          desc: "Mưa ngập đường, hai đứa lội nước cười như điên.",
+          images: [
+            "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600",
+          ],
+        },
+        {
+          month: "Tháng 8",
+          cover:
+            "?w=400",
+          desc: "Tháng này cãi nhau to, anh xin lỗi nha. Yêu em nhiều.",
+          images: [
+            "?w=600",
+          ],
+        },
+        {
+          month: "Tháng 9",
+          cover:
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400",
+          desc: "Làm hòa rồi thì mình lại đi ăn thôi. Béo lên là tại anh nuôi tốt.",
+          images: [
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600",
+          ],
+        },
+        {
+          month: "Tháng 10",
+          cover:
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",
+          desc: "Mùa thu Hà Nội, đi dạo hồ Tây lãng mạn quá chừng.",
+          images: [
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
+          ],
+        },
+        {
+          month: "Tháng 11",
+          cover:
+            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400",
+          desc: "Trời lạnh đi ăn nướng, em nướng thịt toàn cháy thôi haha.",
+          images: [
+            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600",
+          ],
+        },
+        {
+          month: "Tháng 12",
+          cover:
+            "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=400",
+          desc: "Giáng sinh an lành. Chốt hạ năm cũ, yêu em mãi mãi.",
+          images: [
+            "https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=600",
+          ],
+        },
+      ];
+
+      const puzzleImage =
+        "tinhyeuToBu.jpg?ixlib=rb-4.0.3&w=600";
+
+      // --- KHỞI TẠO CÁC BIẾN ---
+      const grid = document.getElementById("grid");
+      const modal = document.getElementById("myModal");
+      // Các thành phần của modal
+      const slideContainer = document.getElementById("slideshow-container");
+      const marqueeContainer = document.getElementById("marquee-container");
+      const captionText = document.getElementById("modal-caption");
+      const blogContainer = document.getElementById("blog-container");
+
+      let slideInterval;
+
+      // Tạo lưới tháng ở trang chủ
+      memories.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "month-card";
+        card.innerHTML = `
+                <img src="${item.cover}" class="card-img" alt="${item.month}">
+                <div class="card-info">
+                    <span class="month-name">${item.month}</span>
+                </div>
+            `;
+        card.onclick = () => openModal(index);
+        grid.appendChild(card);
+      });
+
+      // --- HÀM MỞ MODAL (ĐÃ CẬP NHẬT LOGIC) ---
+      function openModal(index) {
+        const data = memories[index];
+        modal.style.display = "flex";
+        clearInterval(slideInterval); // Dừng slideshow cũ nếu có
+
+        if (data.type === "blog") {
+          // --- TRƯỜNG HỢP LÀ BLOG (Tháng 1) ---
+          // Ẩn giao diện slideshow
+          slideContainer.style.display = "none";
+          marqueeContainer.style.display = "none";
+
+          // Hiện và nạp nội dung cho blog
+          blogContainer.style.display = "block";
+          blogContainer.innerHTML = data.blogContent;
+          blogContainer.scrollTop = 0; // Cuộn lên đầu bài viết
+        } else {
+          // --- TRƯỜNG HỢP LÀ SLIDESHOW THƯỜNG (Các tháng khác) ---
+          // Ẩn giao diện blog
+          blogContainer.style.display = "none";
+
+          // Hiện giao diện slideshow
+          slideContainer.style.display = "block";
+          marqueeContainer.style.display = "flex";
+
+          // Nạp dữ liệu slideshow
+          captionText.innerHTML =
+            data.desc +
+            " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ❤️ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +
+            data.desc;
+          slideContainer.innerHTML = "";
+
+          if (data.images && data.images.length > 0) {
+            data.images.forEach((imgSrc, i) => {
+              const img = document.createElement("img");
+              img.src = imgSrc;
+              img.className = i === 0 ? "modal-img active" : "modal-img";
+              slideContainer.appendChild(img);
+            });
+            if (data.images.length > 1) {
+              let currentSlide = 0;
+              slideInterval = setInterval(() => {
+                const slides = slideContainer.querySelectorAll(".modal-img");
+                if (slides.length > 0) {
+                  slides[currentSlide].classList.remove("active");
+                  currentSlide = (currentSlide + 1) % slides.length;
+                  slides[currentSlide].classList.add("active");
+                }
+              }, 2500);
+            }
+          }
+        }
+      }
+
+      function closeModal() {
+        modal.style.display = "none";
+        clearInterval(slideInterval);
+        // Dừng video nếu đang phát trong blog
+        const videos = blogContainer.querySelectorAll("video");
+        videos.forEach((video) => video.pause());
+      }
+
+      window.onclick = function (event) {
+        if (event.target == modal) closeModal();
+      };
+
+      // --- CÁC PHẦN KHÁC GIỮ NGUYÊN (Âm thanh, Countdown, Hiệu ứng) ---
+      const music = document.getElementById("bgMusic");
+      const puzzleMusic = document.getElementById("puzzleMusic");
+      const musicBtn = document.querySelector(".music-control");
+      let isPlaying = false;
+
+      function toggleMusic() {
+        if (isPlaying) {
+          music.pause();
+          musicBtn.innerHTML =
+            '<span id="music-icon">🎵</span> Bật nhạc lên em nhé';
+        } else {
+          music.play();
+          musicBtn.innerHTML = '<span id="music-icon">⏸️</span> Đang phát';
+        }
+        isPlaying = !isPlaying;
+      }
+
+      const anniversaryDate = new Date("2023-12-28");
+      function updateCountdown() {
+        const now = new Date();
+        const diff = Math.ceil((now - anniversaryDate) / (1000 * 60 * 60 * 24));
+        document.getElementById("countdown").innerText =
+          `Đã yêu nhau ${diff} ngày ❤️`;
+      }
+      setInterval(updateCountdown, 1000 * 60 * 60);
+      updateCountdown();
+
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }, 500);
+
+      const overlay = document.getElementById("effect-overlay");
+      const bigIcon = document.getElementById("big-icon");
+      const puzzleContainer = document.getElementById("puzzle-container");
+      let effectElements = [];
+
+      function triggerEffect(type) {
+        overlay.style.display = "flex";
+        bigIcon.classList.remove("show");
+        bigIcon.style.display = "block";
+        puzzleContainer.style.display = "none";
+        effectElements.forEach((el) => el.remove());
+        effectElements = [];
+        puzzleContainer.innerHTML = "";
+
+        if (type === "heart" || type === "flower") {
+          const symbol = type === "heart" ? "❤️" : "🌸";
+          const bigSymbol = type === "heart" ? "❤️" : "🌸";
+          bigIcon.innerHTML = bigSymbol;
+          for (let i = 0; i < 50; i++) {
+            const el = document.createElement("div");
+            el.classList.add("effect-element");
+            el.innerHTML = symbol;
+            el.style.fontSize = Math.random() * 40 + 20 + "px";
+            const startX = (Math.random() - 0.5) * window.innerWidth * 1.5;
+            const startY = (Math.random() - 0.5) * window.innerHeight * 1.5;
+            el.style.left = "50%";
+            el.style.top = "50%";
+            el.style.transform = `translate(${startX}px, ${startY}px)`;
+            el.style.opacity = "0";
+            overlay.appendChild(el);
+            effectElements.push(el);
+            setTimeout(() => {
+              el.style.opacity = "1";
+              el.style.transform = `translate(${(Math.random() - 0.5) * 50}px, ${(Math.random() - 0.5) * 50}px) rotate(${Math.random() * 360}deg)`;
+            }, 50);
+          }
+          setTimeout(() => {
+            bigIcon.classList.add("show");
+          }, 1200);
+        } else if (type === "puzzle") {
+          music.pause();
+          puzzleMusic.currentTime = 0;
+          puzzleMusic.play();
+          bigIcon.style.display = "none";
+          puzzleContainer.style.display = "block";
+          createPuzzle();
+        }
+      }
+
+      function createPuzzle() {
+        const rows = 10;
+        const cols = 10;
+        const pieceSize = 30;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const piece = document.createElement("div");
+            piece.classList.add("puzzle-piece");
+            piece.style.width = pieceSize + "px";
+            piece.style.height = pieceSize + "px";
+            piece.style.backgroundImage = `url('${puzzleImage}')`;
+            piece.style.backgroundSize = "300px 300px";
+            piece.style.backgroundPosition = `-${c * pieceSize}px -${r * pieceSize}px`;
+            piece.style.left = c * pieceSize + "px";
+            piece.style.top = r * pieceSize + "px";
+            const randX = (Math.random() - 0.5) * window.innerWidth;
+            const randY = (Math.random() - 0.5) * window.innerHeight;
+            const randRot = Math.random() * 720;
+            piece.style.transform = `translate(${randX}px, ${randY}px) rotate(${randRot}deg)`;
+            piece.style.opacity = 0;
+            puzzleContainer.appendChild(piece);
+            setTimeout(
+              () => {
+                piece.style.transform = "translate(0, 0) rotate(0deg)";
+                piece.style.opacity = 1;
+              },
+              100 + Math.random() * 500,
+            );
+          }
+        }
+      }
+
+      function closeEffect() {
+        overlay.style.display = "none";
+        effectElements.forEach((el) => el.remove());
+        puzzleContainer.innerHTML = "";
+        bigIcon.classList.remove("show");
+        puzzleMusic.pause();
+        if (isPlaying) {
+          music.play();
+        }
+      }
+    </script>
+  </body>
+</html>
